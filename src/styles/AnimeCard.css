@@ -1,0 +1,569 @@
+/* ========================================== */
+/* ANIME GRID & CARDS                         */
+/* ========================================== */
+.anime-card {
+  appearance: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  background: transparent;
+  border-radius: var(--border-radius-md);
+  padding: 0;
+  cursor: pointer;
+  transition: opacity var(--transition-smooth), transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.anime-card:hover {
+  transform: translateY(-4px);
+  z-index: 2; /* Bring active hover above neighbors */
+}
+
+
+
+
+.anime-card:focus-visible {
+  box-shadow: var(--ring);
+  transform: translateY(-3px);
+}
+
+.card-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  margin-bottom: 0;
+  border: none;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.anime-card:hover .card-image {
+  transform: scale(1.03);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12, 12, 15, 0.85) 0%, rgba(12, 12, 15, 0.2) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+body.light-mode .card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.15) 35%, transparent 65%);
+}
+
+.card-rating {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 3px 7px;
+  background: rgba(12, 12, 15, 0.72);
+  backdrop-filter: blur(4px);
+  border-radius: var(--border-radius-sm);
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 4;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode .card-rating {
+  background: rgba(255, 255, 255, 0.95);
+  color: #121115;
+  border: 1px solid var(--border-default);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.card-rank {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 3px 7px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border-radius: var(--border-radius-sm);
+  font-size: 10px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+  z-index: 4;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.light-mode .card-rank {
+  background: rgba(255, 255, 255, 0.95);
+  color: #121115;
+  border: 1px solid var(--border-default);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  padding: 8px 4px 4px 4px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  letter-spacing: -0.1px;
+  margin-bottom: 2px;
+}
+
+/* Default state Mini Ledger Grid */
+.card-info-ledger {
+  display: flex;
+  border: 1px solid var(--border-subtle);
+  width: 100%;
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .card-info-ledger {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.card-info-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 6px;
+  border-right: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.card-info-cell:last-child {
+  border-right: none;
+}
+
+.card-info-label {
+  font-size: 6.5px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-info-value {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-info-value.rating {
+  color: var(--accent-score);
+}
+
+/* Bookmark button */
+.card-bookmark-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: rgba(12, 12, 15, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+body.light-mode .card-bookmark-btn {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.anime-card:hover .card-bookmark-btn,
+.card-bookmark-btn.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-bookmark-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+.card-bookmark-btn.active {
+  background: rgba(240, 145, 62, 0.15);
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-image-container:has(.card-rank) .card-bookmark-btn {
+  top: 44px;
+}
+
+/* --- Popover Hover Window --- */
+.anime-card { position: relative; z-index: 1; }
+.anime-card:hover { z-index: 50; }
+
+.hover-window {
+  position: absolute;
+  /* Appear to the right of the card by default */
+  top: 0;
+  left: calc(100% + 12px);
+  width: 260px;
+  background: var(--bg-elevated);
+  border-radius: var(--border-radius-lg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-8px);
+  transform-origin: left center;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(var(--dynamic-aura-rgb), 0.35);
+  border-top: 1px solid rgba(var(--dynamic-aura-rgb), 0.65);
+  box-shadow: 
+    0 0 24px rgba(var(--dynamic-aura-rgb), 0.15),
+    0 16px 48px rgba(0,0,0,0.8);
+}
+
+.anime-card:hover .hover-window {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  transition-delay: 0.35s;
+}
+
+/* Flip popup UPWARD when card is near the bottom of the viewport */
+.anime-card.hover-up .hover-window {
+  top: auto;
+  bottom: 0;
+}
+
+/* Flip popup LEFT when near viewport right edge (applied via JS) */
+.anime-card.hover-left .hover-window {
+  left: auto;
+  right: calc(100% + 12px);
+  transform: translateX(8px);
+  transform-origin: right center;
+}
+
+.anime-card.hover-left:hover .hover-window {
+  transform: translateX(0);
+}
+
+
+/* Flip popup to LEFT for rightmost column cards to prevent viewport overflow */
+/* 6 Columns (Desktop > 1600px) */
+.anime-grid .anime-card:nth-child(6n) .hover-window {
+  left: auto;
+  right: calc(100% + 12px);
+  transform: translateX(8px);
+  transform-origin: right center;
+}
+.anime-grid .anime-card:nth-child(6n):hover .hover-window {
+  transform: translateX(0);
+}
+
+/* 5 Columns (1300px to 1600px) */
+@media (max-width: 1600px) {
+  .anime-grid .anime-card:nth-child(6n) .hover-window {
+    left: calc(100% + 12px);
+    right: auto;
+    transform: translateX(-8px);
+    transform-origin: left center;
+  }
+  .anime-grid .anime-card:nth-child(5n) .hover-window {
+    left: auto;
+    right: calc(100% + 12px);
+    transform: translateX(8px);
+    transform-origin: right center;
+  }
+  .anime-grid .anime-card:nth-child(5n):hover .hover-window {
+    transform: translateX(0);
+  }
+}
+
+/* 4 Columns (992px to 1300px) */
+@media (max-width: 1300px) {
+  .anime-grid .anime-card:nth-child(5n) .hover-window {
+    left: calc(100% + 12px);
+    right: auto;
+    transform: translateX(-8px);
+    transform-origin: left center;
+  }
+  .anime-grid .anime-card:nth-child(4n) .hover-window {
+    left: auto;
+    right: calc(100% + 12px);
+    transform: translateX(8px);
+    transform-origin: right center;
+  }
+  .anime-grid .anime-card:nth-child(4n):hover .hover-window {
+    transform: translateX(0);
+  }
+}
+
+/* 3 Columns (768px to 992px) */
+@media (max-width: 992px) {
+  .anime-grid .anime-card:nth-child(4n) .hover-window {
+    left: calc(100% + 12px);
+    right: auto;
+    transform: translateX(-8px);
+    transform-origin: left center;
+  }
+  .anime-grid .anime-card:nth-child(3n) .hover-window {
+    left: auto;
+    right: calc(100% + 12px);
+    transform: translateX(8px);
+    transform-origin: right center;
+  }
+  .anime-grid .anime-card:nth-child(3n):hover .hover-window {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile — disable popup entirely, too narrow */
+@media (max-width: 768px) {
+  .hover-window { display: none; }
+}
+
+
+.hover-window-image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hover-window-image { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
+.hover-window-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-elevated) 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Shoji Lattice Pattern */
+.hover-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(90deg, rgba(255,255,255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Golden Mandala Corners — Dynamic Aura color */
+.hover-window::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(var(--dynamic-aura-rgb), 0.45);
+  background: 
+    radial-gradient(circle at 0 0, transparent 12px, rgba(var(--dynamic-aura-rgb), 0.4) 13px, transparent 14px),
+    radial-gradient(circle at 100% 0, transparent 12px, rgba(var(--dynamic-aura-rgb), 0.4) 13px, transparent 14px),
+    radial-gradient(circle at 0 100%, transparent 12px, rgba(var(--dynamic-aura-rgb), 0.4) 13px, transparent 14px),
+    radial-gradient(circle at 100% 100%, transparent 12px, rgba(var(--dynamic-aura-rgb), 0.4) 13px, transparent 14px);
+  pointer-events: none;
+  z-index: 10;
+}
+.hover-window-content { padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 8px; margin-top: -20px; position: relative; z-index: 2; }
+.hover-window-actions { display: flex; gap: 8px; align-items: center; }
+.hover-window-play-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--text-primary); color: var(--bg-primary); display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: none; cursor: pointer; }
+.hover-window-play-btn:hover { background: rgb(var(--dynamic-aura-rgb)); color: #fff; transform: scale(1.1); }
+.hover-window-play-btn svg { width: 18px; height: 18px; margin-left: 2px; }
+.hover-window-bookmark-btn { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-subtle); background: rgba(0,0,0,0.5); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.hover-window-bookmark-btn:hover { border-color: #fff; }
+.hover-window-bookmark-btn.active { 
+  background: rgba(var(--dynamic-aura-rgb), 0.15); 
+  border-color: rgb(var(--dynamic-aura-rgb)); 
+  color: rgb(var(--dynamic-aura-rgb)); 
+}
+
+/* Card Ledger Grid (2x3 Grid Layout) */
+.card-ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border-subtle);
+  width: 100%;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+body.light-mode .hover-window {
+  background: #FFFFFF;
+  border: 1px solid var(--border-default);
+  border-top: 2px solid var(--accent-primary);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .hover-window-overlay {
+  background: linear-gradient(to top, #FFFFFF 0%, transparent 100%);
+}
+
+body.light-mode .hover-window-bookmark-btn {
+  background: var(--bg-surface);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+body.light-mode .card-ledger-grid {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+}
+
+body.light-mode .card-ledger-cell {
+  border-color: var(--border-subtle);
+}
+
+body.light-mode .card-ledger-label {
+  color: var(--text-secondary);
+}
+
+body.light-mode .card-info-ledger {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+}
+
+.card-ledger-cell {
+  padding: 5px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Remove right borders from last column */
+.card-ledger-cell:nth-child(3n) {
+  border-right: none;
+}
+
+/* Remove bottom borders from last row */
+.card-ledger-cell:nth-child(n+4) {
+  border-bottom: none;
+}
+
+.card-ledger-label {
+  font-size: 7.5px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-ledger-tri {
+  font-family: var(--font-serif);
+  font-size: 7.5px;
+}
+
+.card-ledger-value {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-ledger-value.score {
+  color: var(--accent-score);
+}
+
+.card-ledger-value.status {
+  color: var(--accent-primary);
+}
+
+.card-ledger-value.studio {
+  color: var(--accent-secondary);
+}
+
+.card-ledger-value.release {
+  color: var(--text-secondary);
+}
+
+.card-ledger-value.source {
+  color: var(--accent-info);
+}
+
+/* Calligraphy Watermark Inside Popover */
+.hover-window-bg-text {
+  position: absolute;
+  right: 12px;
+  top: 165px;
+  bottom: 12px;
+  width: fit-content;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--text-primary);
+  opacity: 0.025;
+  letter-spacing: -3px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hover-window-genres { display: flex; flex-wrap: wrap; gap: 6px; font-size: 11px; color: var(--text-secondary); align-items: center; z-index: 2; }
+.genre-dot { margin-left: 6px; font-size: 8px; color: var(--border-subtle); }
+.hover-window-synopsis { font-size: 11px; line-height: 1.4; color: var(--text-secondary); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; z-index: 2; }
+
+/* Card Image Fallback */
+.card-image-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-surface) 100%); display: flex; align-items: center; justify-content: center; padding: 16px; text-align: center; border-radius: inherit; }
+.fallback-title { color: var(--text-secondary); font-weight: 600; font-size: 14px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.hover-window-play-btn.disabled { opacity: 0.5; cursor: not-allowed; background: var(--bg-surface); color: var(--text-muted); }
+.hover-window-play-btn.disabled:hover { background: var(--bg-surface); color: var(--text-muted); transform: none; box-shadow: none; }
+
+/* Trailer Autoplay Styles — oversized 120% + centered to crop out YouTube chrome */
+.hover-window-trailer {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  border: none;
+  z-index: 1;
+  pointer-events: none;
+  animation: fadeIn 0.4s ease-out;
+}
+.hover-window-image.fade-out { opacity: 0; }

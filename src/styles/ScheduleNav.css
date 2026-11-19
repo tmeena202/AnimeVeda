@@ -1,0 +1,83 @@
+/* ========================================== */
+/* AIRING SCHEDULE COMPONENTS                 */
+/* ========================================== */
+.schedule-nav {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.schedule-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.schedule-day-btn {
+  padding: 9px 18px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: var(--transition-smooth);
+  flex: 0 0 auto;
+}
+
+.schedule-day-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.schedule-day-btn.active {
+  background: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-primary);
+}
+
+.card-airing-time {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 3px 8px;
+  background: rgba(12, 12, 15, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-info);
+  z-index: 2;
+}
+
+/* ============================================ */
+/* LIGHT MODE STYLES FOR SCHEDULE               */
+/* ============================================ */
+
+body.light-mode .schedule-day-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+body.light-mode .schedule-day-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+body.light-mode .schedule-day-btn.active {
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--accent-primary);
+}
+
+body.light-mode .card-airing-time {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-default);
+  color: var(--accent-info);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

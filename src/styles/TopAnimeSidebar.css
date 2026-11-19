@@ -1,0 +1,257 @@
+/* ======================================================== */
+/* TOP ANIME RIGHT SIDEBAR — BRUTALIST EDITORIAL STYLE      */
+/* ======================================================== */
+
+.top-anime-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.top-anime-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Header Stack */
+.top-anime-header-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.top-anime-sub-label {
+  font-family: var(--font-serif);
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.6px;
+  opacity: 0.7;
+}
+
+.top-anime-title-main {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  margin: 0;
+  line-height: 1;
+}
+
+/* Brutalist Tabs Bar */
+.top-anime-tabs {
+  display: flex;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.top-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 6px 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.top-tab-btn:last-child {
+  border-right: none;
+}
+
+.top-tab-btn-sub {
+  font-family: var(--font-serif);
+  font-size: 7px;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.top-tab-btn-main {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.top-tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+.top-tab-btn.active {
+  background: rgb(var(--dynamic-aura-rgb, 240, 145, 62));
+  color: #fff;
+  box-shadow: none;
+}
+
+/* List container */
+.top-anime-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.top-anime-loading {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* Sidebar List Item */
+.top-anime-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 0;
+  border-left: 2px solid transparent;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.top-anime-item:hover {
+  background: var(--bg-hover);
+  border-left-color: rgb(var(--dynamic-aura-rgb, 240, 145, 62));
+}
+
+.top-anime-rank {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-muted);
+  width: 24px;
+  text-align: center;
+}
+
+.top-anime-rank.top-3 {
+  color: rgb(var(--dynamic-aura-rgb, 240, 145, 62));
+}
+
+/* Thumbnail */
+.top-anime-thumb {
+  width: 48px;
+  height: 64px;
+  border-radius: 0;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.top-anime-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.top-anime-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.top-anime-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-anime-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+/* Format Label & Score */
+.top-anime-type {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: 0;
+  color: var(--text-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.top-anime-score {
+  color: var(--accent-score);
+  font-weight: 700;
+}
+
+/* ============================================ */
+/* LIGHT MODE STYLES FOR TOP ANIME SIDEBAR      */
+/* ============================================ */
+
+body.light-mode .top-anime-sidebar {
+  background: #FFFFFF;
+  border: 1px solid var(--border-default);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .top-anime-tabs {
+  border: 1px solid var(--border-default);
+}
+
+body.light-mode .top-tab-btn {
+  border-right: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+body.light-mode .top-tab-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+body.light-mode .top-tab-btn.active {
+  background: var(--accent-primary);
+  color: #FFFFFF;
+}
+
+body.light-mode .top-anime-item:hover {
+  background: var(--bg-hover);
+}
+
+body.light-mode .top-anime-thumb {
+  border: 1px solid var(--border-default);
+}
+
+body.light-mode .top-anime-type {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* ============================================ */
+/* RESPONSIVE LAYOUT                            */
+/* ============================================ */
+@media (max-width: 1100px) {
+  .top-anime-sidebar {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    margin-top: 16px;
+  }
+}

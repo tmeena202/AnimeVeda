@@ -1,0 +1,134 @@
+/* ========================================== */
+/* CONTENT FOOTER                             */
+/* ========================================== */
+.content-footer {
+  margin-top: 56px;
+  padding: 28px 0 20px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-brand-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.footer-brand-name span {
+  color: var(--accent-primary);
+}
+
+.footer-brand-tagline {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.footer-shortcuts {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.footer-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.footer-shortcut kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 5px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-copyright {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.footer-api-credit {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.footer-api-credit a {
+  color: var(--accent-info);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color var(--transition-smooth);
+}
+
+.footer-api-credit a:hover {
+  color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+  .footer-top-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .footer-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+/* ============================================ */
+/* LIGHT MODE STYLES FOR FOOTER                 */
+/* ============================================ */
+
+body.light-mode .footer-shortcut kbd {
+  background: #FFFFFF;
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+body.light-mode .content-footer,
+body.light-mode .footer-bottom-row {
+  border-color: var(--border-default);
+}

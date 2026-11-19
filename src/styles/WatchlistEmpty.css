@@ -1,0 +1,373 @@
+/* ==========================================================================
+   ANIME VAULT - EMPTY VAULT STATE (FULL DARK & LIGHT MODE SUPPORT)
+   ========================================================================== */
+
+.watchlist-empty-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 30px auto 60px auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg, 16px);
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.35) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.2) 100%
+  );
+  box-shadow: var(--shadow-lg, 0 16px 48px rgba(0, 0, 0, 0.4)), 0 0 30px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.08);
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Background Large Japanese Watermark */
+.vault-empty-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-4deg);
+  font-family: 'Noto Serif JP', 'Zen Antique', serif, sans-serif;
+  font-size: clamp(100px, 18vw, 200px);
+  font-weight: 900;
+  color: var(--border-default);
+  opacity: 0.18;
+  letter-spacing: 0.15em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* Main Inner Card */
+.watchlist-empty-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 36px 44px 36px;
+  background: radial-gradient(
+    circle at 50% 10%, 
+    rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.08) 0%, 
+    var(--bg-card, #1c1b1f) 70%
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: inherit;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Crest Halo Container */
+.vault-crest-halo {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.vault-crest-icon {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg, 
+    rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.18) 0%, 
+    var(--bg-elevated, #232226) 100%
+  );
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.4);
+  box-shadow: 0 0 35px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.25), inset 0 0 20px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.1);
+  color: var(--accent-primary, #e50914);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.vault-crest-halo:hover .vault-crest-icon {
+  transform: scale(1.08) rotate(4deg);
+  box-shadow: 0 0 45px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.45), inset 0 0 25px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.2);
+}
+
+.vault-crest-svg {
+  filter: drop-shadow(0 2px 8px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.4));
+}
+
+.vault-crest-sparkle {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-primary, #e50914);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.6);
+  animation: pulseSparkle 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.15) rotate(15deg);
+    opacity: 1;
+    box-shadow: 0 0 24px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.85);
+  }
+}
+
+/* Headers */
+.vault-empty-headers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.vault-empty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans, inherit);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #e50914);
+  background: rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.12);
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.watchlist-empty-title {
+  font-family: var(--font-serif, inherit);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin: 0 0 6px 0;
+}
+
+.watchlist-empty-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.watchlist-empty-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin: 0 auto 30px auto;
+}
+
+/* Action Buttons */
+.vault-empty-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.vault-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(
+    135deg, 
+    var(--accent-primary, #e50914) 0%, 
+    rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.88) 100%
+  );
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-md, 8px);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vault-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.5);
+  filter: brightness(1.08);
+}
+
+.vault-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--border-radius-md, 8px);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.vault-btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* Feature Hint Cards */
+.vault-empty-hints {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 30px;
+  text-align: left;
+}
+
+.vault-hint-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md, 8px);
+  transition: all 0.2s ease;
+}
+
+.vault-hint-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-default);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.vault-hint-step {
+  font-family: var(--font-sans, inherit);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-primary, #e50914);
+  background: rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.12);
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 229, 9, 20), 0.25);
+  border-radius: 6px;
+  padding: 2px 6px;
+  line-height: 1.2;
+}
+
+.vault-hint-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.vault-hint-body strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.vault-hint-body span {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.vault-hint-body .inline-icon {
+  display: inline;
+  vertical-align: -1px;
+  color: var(--accent-primary, #e50914);
+}
+
+/* ─── Light Mode Specific Overrides ─── */
+body.light-mode .watchlist-empty-wrapper {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.3) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.18) 100%
+  );
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 20px rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.06);
+}
+
+body.light-mode .watchlist-empty-card {
+  background: radial-gradient(
+    circle at 50% 10%, 
+    rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.06) 0%, 
+    #FFFFFF 70%
+  );
+  border: 1px solid var(--border-default);
+}
+
+body.light-mode .vault-empty-watermark {
+  color: #000000;
+  opacity: 0.04;
+}
+
+body.light-mode .vault-crest-icon {
+  background: linear-gradient(
+    135deg, 
+    rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.12) 0%, 
+    #FFFFFF 100%
+  );
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.35);
+  box-shadow: 0 4px 18px rgba(var(--dynamic-aura-rgb, 211, 47, 47), 0.18);
+}
+
+body.light-mode .vault-btn-secondary {
+  background: var(--bg-primary);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+body.light-mode .vault-btn-secondary:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-hover);
+}
+
+body.light-mode .vault-hint-card {
+  background: var(--bg-primary);
+  border-color: var(--border-subtle);
+}
+
+body.light-mode .vault-hint-card:hover {
+  background: #FFFFFF;
+  border-color: var(--border-default);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .watchlist-empty-card {
+    padding: 40px 20px 30px 20px;
+  }
+
+  .vault-empty-hints {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .vault-empty-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .vault-btn-primary,
+  .vault-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

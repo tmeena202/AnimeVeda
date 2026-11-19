@@ -1,0 +1,174 @@
+/* ========================================== */
+/* UNIFIED LOADING SYSTEM STYLES              */
+/* ========================================== */
+
+/* --- Base Spinner --- */
+.spinner {
+  position: relative;
+  flex: 0 0 auto;
+  border: none;
+  background: none;
+  animation: none;
+  display: block;
+}
+
+/* Spinner Sizes */
+.spinner.lg {
+  width: 40px;
+  height: 40px;
+}
+
+.spinner.md {
+  width: 24px;
+  height: 24px;
+}
+
+.spinner.sm {
+  width: 16px;
+  height: 16px;
+}
+
+/* Spinner Aura Rings (Ensō + Lotus Theme) */
+.spinner::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: var(--accent-primary);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 8C26.8 8 8 26.8 8 50c0 23.2 18.8 42 42 42 20.5 0 37.6-14.7 41.3-34' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' opacity='0.3'/%3E%3Cpath d='M50 8C26.8 8 8 26.8 8 50c0 23.2 18.8 42 42 42' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' /%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 8C26.8 8 8 26.8 8 50c0 23.2 18.8 42 42 42 20.5 0 37.6-14.7 41.3-34' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' opacity='0.3'/%3E%3Cpath d='M50 8C26.8 8 8 26.8 8 50c0 23.2 18.8 42 42 42' fill='none' stroke='black' stroke-width='8' stroke-linecap='round' /%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  animation: pulseEnso 2s ease-in-out infinite;
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: var(--accent-secondary);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='black' stroke-width='8'%3E%3Ccircle cx='50' cy='50' r='36' fill='none'/%3E%3Ccircle cx='50' cy='50' r='10' fill='black'/%3E%3Cline x1='50' y1='14' x2='50' y2='86'/%3E%3Cline x1='14' y1='50' x2='86' y2='50'/%3E%3Cline x1='24.5' y1='24.5' x2='75.5' y2='75.5'/%3E%3Cline x1='24.5' y1='75.5' x2='75.5' y2='24.5'/%3E%3C/g%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='black' stroke-width='8'%3E%3Ccircle cx='50' cy='50' r='36' fill='none'/%3E%3Ccircle cx='50' cy='50' r='10' fill='black'/%3E%3Cline x1='50' y1='14' x2='50' y2='86'/%3E%3Cline x1='14' y1='50' x2='86' y2='50'/%3E%3Cline x1='24.5' y1='24.5' x2='75.5' y2='75.5'/%3E%3Cline x1='24.5' y1='75.5' x2='75.5' y2='24.5'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  animation: spinLoading 3s linear infinite;
+}
+
+/* Ajust settings for smaller scale spinner */
+.spinner.sm::before {
+  inset: -2px;
+}
+.spinner.sm::after {
+  inset: 1px;
+}
+
+@keyframes pulseEnso {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.85; }
+}
+
+@keyframes spinLoading {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Container Layout Types --- */
+
+/* Page-level Card Container */
+.loading-component.loading-page {
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  border-radius: var(--border-radius-md);
+  padding: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  margin: 20px 0;
+}
+
+/* Section Box Container */
+.loading-component.loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 180px;
+  width: 100%;
+  padding: 24px 0;
+}
+
+/* Absolute Overlay Container */
+.loading-component.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 17, 19, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  border-radius: inherit;
+}
+
+body.light-mode .loading-component.loading-overlay {
+  background: rgba(244, 241, 234, 0.75);
+}
+
+/* Inline Flex Container */
+.loading-component.loading-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+}
+
+/* --- Trilingual Text Styling --- */
+.loading-component .loading-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.trilingual-loading-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+
+.trilingual-loading-text .divider {
+  opacity: 0.5;
+  color: var(--accent-primary);
+}
+
+.trilingual-loading-text .lang-hi {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.trilingual-loading-text .lang-ja {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.trilingual-loading-text .lang-en {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .trilingual-loading-text {
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .trilingual-loading-text .divider {
+    display: none;
+  }
+}

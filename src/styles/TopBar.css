@@ -1,0 +1,480 @@
+/* ========================================== */
+/* FIXED TOP BAR                              */
+/* ========================================== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px 0 0;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Logo Zone */
+.top-bar-logo-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  min-width: 70px;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  border-right: 1px solid var(--border-subtle);
+  transition: background var(--transition-smooth);
+}
+
+.top-bar-logo-zone:hover {
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.08) 0%,
+    transparent 70%
+  ), var(--bg-elevated);
+}
+
+.top-bar-logo {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG Logo Elements & Blooming Micro-Animations */
+.top-bar-logo-svg {
+  overflow: visible;
+}
+
+.logo-enso {
+  transform-origin: 50% 50%;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.logo-petal {
+  transform-origin: 50px 78px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Interactive Blooming States on Logo Hover */
+.top-bar-logo-zone:hover .logo-enso {
+  transform: rotate(30deg);
+}
+
+.top-bar-logo-zone:hover .logo-petal.center {
+  transform: scale(1.15) translateY(-2px);
+}
+
+.top-bar-logo-zone:hover .logo-petal.inner.left {
+  transform: scale(1.12) rotate(-5deg) translate(-1px, -1px);
+}
+
+.top-bar-logo-zone:hover .logo-petal.inner.right {
+  transform: scale(1.12) rotate(5deg) translate(1px, -1px);
+}
+
+.top-bar-logo-zone:hover .logo-petal.outer.left {
+  transform: scale(1.08) rotate(-10deg) translate(-2px, 0);
+}
+
+.top-bar-logo-zone:hover .logo-petal.outer.right {
+  transform: scale(1.08) rotate(10deg) translate(2px, 0);
+}
+
+/* Brand Text Editorial Stack */
+.top-bar-brand-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.brand-sub-label {
+  font-family: var(--font-serif);
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.6px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: color var(--transition-smooth);
+}
+
+.top-bar-brand-stack:hover .brand-sub-label {
+  color: var(--text-secondary);
+}
+
+.top-bar-brand {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: text-shadow var(--transition-smooth);
+}
+
+.top-bar-brand span {
+  color: rgb(var(--dynamic-aura-rgb, 240, 145, 62));
+  letter-spacing: 1.2px;
+  transition: color var(--transition-smooth);
+}
+
+.top-bar-brand-stack:hover .top-bar-brand span {
+  text-shadow: 0 0 10px rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.5);
+}
+
+/* Global Search Bar */
+.top-bar-search {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+  margin-left: 12px;
+}
+
+.top-bar-search-form {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.top-bar-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color var(--transition-smooth);
+}
+
+.top-bar-search-input {
+  width: 100%;
+  padding: 9px 42px 9px 40px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.top-bar-search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.top-bar-search-input:focus {
+  border-color: var(--border-hover);
+  background: var(--bg-surface);
+}
+
+.top-bar-search-shortcut {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+/* Action Buttons */
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.top-bar-action-btn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.top-bar-action-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.top-bar-action-btn.labeled {
+  width: auto;
+  padding: 0 12px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.top-bar-action-btn.labeled:hover {
+  color: var(--text-primary);
+}
+
+/* User Profile Action Pill */
+.top-bar-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 4px 12px 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.top-bar-user-pill:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.2);
+}
+
+.top-bar-user-avatar {
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-bar-user-name {
+  font-size: 12px;
+  font-weight: 700;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-bar-login-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.12);
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.35);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.top-bar-login-pill:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(var(--dynamic-aura-rgb, 240, 145, 62), 0.4);
+}
+
+.top-bar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-subtle);
+  margin: 0 4px;
+}
+
+.top-bar-badge {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 0 14px;
+    gap: 8px;
+    height: 52px;
+  }
+
+  .top-bar-logo-zone {
+    width: auto;
+    min-width: auto;
+    border-right: none;
+    padding: 0 8px;
+  }
+
+  .top-bar-brand-stack {
+    display: none;
+  }
+
+  .top-bar-search {
+    margin-left: 4px;
+  }
+
+  .top-bar-search-shortcut {
+    display: none;
+  }
+
+  .top-bar-action-btn.labeled span {
+    display: none;
+  }
+
+  .top-bar-action-btn.labeled {
+    width: 36px;
+    padding: 0;
+  }
+
+  .top-bar-karma span {
+    display: none; /* Hide karma text on mobile, just show icon */
+  }
+
+  .top-bar-user-name {
+    display: none;
+  }
+
+  .top-bar-user-pill {
+    padding: 6px;
+    border-radius: 50%;
+  }
+
+  .top-bar-login-pill span {
+    display: none;
+  }
+
+  .top-bar-login-pill {
+    padding: 6px 8px;
+  }
+}
+
+/* Karma Gamification Badge — Ledger Style */
+.top-bar-karma {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  background: rgba(var(--dynamic-aura-rgb, 230,57,70), 0.08);
+  border: 1px solid rgba(var(--dynamic-aura-rgb, 230,57,70), 0.25);
+  border-radius: 0;
+  color: rgb(var(--dynamic-aura-rgb, 230,57,70));
+  cursor: default;
+  transition: var(--transition-smooth);
+}
+
+.top-bar-karma:hover {
+  background: rgba(var(--dynamic-aura-rgb, 230,57,70), 0.15);
+  box-shadow: 0 4px 12px rgba(var(--dynamic-aura-rgb, 230,57,70), 0.15);
+}
+
+.karma-label-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.karma-sub-label {
+  font-size: 8px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  opacity: 0.7;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.karma-en-label {
+  font-size: 9px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.karma-value {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+
+/* ============================================ */
+/* LIGHT MODE STYLES FOR TOPBAR                 */
+/* ============================================ */
+
+body.light-mode .top-bar {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .top-bar-logo-zone {
+  border-right: 1px solid var(--border-subtle);
+}
+
+body.light-mode .top-bar-logo-zone:hover {
+  background: var(--bg-hover);
+}
+
+body.light-mode .top-bar-search-input {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+body.light-mode .top-bar-search-input:focus {
+  background: #FFFFFF;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(var(--dynamic-aura-rgb), 0.15);
+}
+
+body.light-mode .top-bar-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+body.light-mode .top-bar-search-shortcut {
+  background: #FFFFFF;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+body.light-mode .top-bar-action-btn {
+  color: var(--text-secondary);
+}
+
+body.light-mode .top-bar-action-btn:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+body.light-mode .top-bar-karma {
+  background: rgba(var(--dynamic-aura-rgb), 0.08);
+  border-color: rgba(var(--dynamic-aura-rgb), 0.3);
+}
