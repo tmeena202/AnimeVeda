@@ -55,9 +55,9 @@ export default function TopBar({
         </div>
       </div>
 
-      {/* Brand Name — Trilingual Stack */}
+      {/* Brand Name Stack */}
       <div className="top-bar-brand-stack" onClick={showTrending} style={{ cursor: 'pointer' }}>
-        <span className="brand-sub-label">एनीमे वेद · アニメヴェーダ</span>
+        <span className="brand-sub-label">アニメヴェーダ · ANIME VAULT</span>
         <div className="top-bar-brand">
           ANIME<span>VEDA</span>
         </div>
@@ -70,7 +70,7 @@ export default function TopBar({
           <input
             ref={searchInputRef}
             type="text"
-            placeholder="खोजें · 探す · SEARCH ANIME..."
+            placeholder="Search anime titles, genres, movies..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="top-bar-search-input"
@@ -99,9 +99,9 @@ export default function TopBar({
         <div className="top-bar-divider"></div>
 
         {/* Karma Tracker */}
-        <div className="top-bar-karma" title="कर्म · カルマ · Karma Points (gain by adding to Vault)">
+        <div className="top-bar-karma" title="Karma Points (gain by adding to Vault)">
           <div className="karma-label-stack">
-            <span className="karma-sub-label">कर्म · カルマ</span>
+            <span className="karma-sub-label">カルマ</span>
             <span className="karma-en-label">KARMA</span>
           </div>
           <span className="karma-value">{karma}</span>

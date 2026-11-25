@@ -83,7 +83,7 @@ export default function UpcomingReleases({ handleAnimeSelect, toggleWatchlist, i
     <section className="latest-releases" id="upcoming-releases">
       <div className="section-header-trilingual">
         <div className="section-header-trilingual-stack">
-          <span className="section-header-sub-label">आगामी एनीमे · 今後のアニメ</span>
+          <span className="section-header-sub-label">今後のアニメ · EXPECTED</span>
           <h2 className="section-header-title-main">UPCOMING ANIME</h2>
         </div>
         <div className="section-header-divider"></div>

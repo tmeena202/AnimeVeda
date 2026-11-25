@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchTopAnime } from '../api';
 import Loading from './Loading';
+import AdBanner from './AdBanner';
 import '../styles/TopAnimeSidebar.css';
 
 export default function TopAnimeSidebar({ handleAnimeSelect }) {
@@ -39,7 +40,7 @@ export default function TopAnimeSidebar({ handleAnimeSelect }) {
   return (
     <aside className="top-anime-sidebar">
       <div className="top-anime-header-stack">
-        <span className="top-anime-sub-label">सर्वश्रेष्ठ एनीमे · 人気作品</span>
+        <span className="top-anime-sub-label">人気作品 · RANKINGS</span>
         <h2 className="top-anime-title-main">TOP ANIME</h2>
       </div>
       
@@ -48,24 +49,27 @@ export default function TopAnimeSidebar({ handleAnimeSelect }) {
           className={`top-tab-btn ${activeTab === 'weekly' ? 'active' : ''}`}
           onClick={() => setActiveTab('weekly')}
         >
-          <span className="top-tab-btn-sub">साप्ताहिक · 週間</span>
+          <span className="top-tab-btn-sub">週間</span>
           <span className="top-tab-btn-main">WEEKLY</span>
         </button>
         <button 
           className={`top-tab-btn ${activeTab === 'monthly' ? 'active' : ''}`}
           onClick={() => setActiveTab('monthly')}
         >
-          <span className="top-tab-btn-sub">मासिक · 月間</span>
+          <span className="top-tab-btn-sub">月間</span>
           <span className="top-tab-btn-main">MONTHLY</span>
         </button>
         <button 
           className={`top-tab-btn ${activeTab === 'yearly' ? 'active' : ''}`}
           onClick={() => setActiveTab('yearly')}
         >
-          <span className="top-tab-btn-sub">वार्षिक · 年間</span>
+          <span className="top-tab-btn-sub">年間</span>
           <span className="top-tab-btn-main">YEARLY</span>
         </button>
       </div>
+
+      {/* Sidebar Ad Unit (Medium Rectangle 300x250) */}
+      <AdBanner layout="rectangle" className="sidebar-ad-placement" />
 
       <div className="top-anime-list">
         {isLoading ? (

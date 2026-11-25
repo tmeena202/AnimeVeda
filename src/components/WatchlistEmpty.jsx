@@ -20,11 +20,11 @@ export default function WatchlistEmpty({ showTrending, onExploreGenres }) {
           </span>
         </div>
 
-        {/* Trilingual Subtitle & Title */}
+        {/* Subtitle & Title */}
         <div className="vault-empty-headers">
           <div className="vault-empty-badge">
             <ShieldCheck size={13} />
-            <span>ENCRYPTED REPOSITORY · तिजोरी</span>
+            <span>ENCRYPTED REPOSITORY · 保管庫</span>
           </div>
           <h3 className="watchlist-empty-title">Your Anime Vault is Pristine</h3>
           <p className="watchlist-empty-jp">まだ保管された作品はありません</p>

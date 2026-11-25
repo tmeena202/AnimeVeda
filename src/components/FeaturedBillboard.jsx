@@ -1,11 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { fetchAnimePictures } from '../api';
-import { Star, Play, Bookmark, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Play, Bookmark, ChevronLeft, ChevronRight, Calendar, Clock, Tv, Film } from 'lucide-react';
 import '../styles/FeaturedBillboard.css';
 
 export default function FeaturedBillboard({ animes, handleAnimeSelect, toggleWatchlist, isInWatchlist }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [extraImages, setExtraImages] = useState([]);
 
   const safeAnimes = Array.isArray(animes) && animes.length > 0 ? animes : [];
   const current = safeAnimes[currentIndex] || null;
@@ -20,173 +18,176 @@ export default function FeaturedBillboard({ animes, handleAnimeSelect, toggleWat
 
   useEffect(() => {
     if (safeAnimes.length <= 1) return;
-    const timer = setInterval(nextSlide, 7000);
+    const timer = setInterval(nextSlide, 6500);
     return () => clearInterval(timer);
   }, [safeAnimes.length, nextSlide]);
-
-  useEffect(() => {
-    if (!current?.id) return;
-    setExtraImages([]);
-    let cancelled = false;
-    fetchAnimePictures(current.id)
-      .then(pics => {
-        if (!cancelled) {
-          const filtered = pics.filter(p => p !== current.image).slice(0, 2);
-          setExtraImages(filtered);
-        }
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, [currentIndex, current?.id, current?.image]);
 
   if (!current) return null;
 
   const isBookmarked = isInWatchlist ? isInWatchlist(current.id) : false;
 
-  // Always-fixed data with guaranteed fallbacks
-  const score    = current.score != null && !isNaN(current.score) ? Number(current.score).toFixed(1) : 'N/A';
-  const format   = current.type || 'TV';
-  const episodes = current.episodes || '—';
-  const genre    = current.genres?.length > 0 ? current.genres.slice(0, 2).join(' · ') : '—';
+  const score = current.score != null && !isNaN(current.score) ? Number(current.score).toFixed(1) : 'N/A';
+  const format = current.type || 'TV';
+  const episodes = current.episodes ? `${current.episodes} eps` : 'Ongoing';
+  const genres = current.genres || [];
   const synopsis = current.synopsis
-    ? current.synopsis.slice(0, 200) + (current.synopsis.length > 200 ? '…' : '')
+    ? current.synopsis.slice(0, 240) + (current.synopsis.length > 240 ? '…' : '')
     : 'No synopsis available.';
-  const titleJP  = current.titleJapanese || '';
+  const titleJP = current.titleJapanese || '';
+  const backdrop = current.bannerImage || current.image;
 
   return (
     <div className="featured-billboard-container">
-
-      {/* Pure CSS background — no image here */}
-      <div className="bb-bg" />
-      <div className="bb-screentone" />
-      <div className="bb-top-fade" />
-
-      {/* Vertical bg text layers */}
-      <div className="bb-bg-texts" aria-hidden="true">
-        {titleJP && <div className="bb-bg-text jp">{titleJP}</div>}
-        <div className="bb-bg-text en">{current.title || ''}</div>
+      {/* ─── 1. Cinematic Full-Bleed Backdrop Image (Ani.pm style) ─── */}
+      <div className="bb-backdrop-layer">
+        <img
+          key={current.id}
+          src={backdrop}
+          alt={current.title}
+          className="bb-backdrop-img"
+          loading="eager"
+        />
+        {/* Multidirectional Gradients for Maximum Legibility */}
+        <div className="bb-scrim-left" />
+        <div className="bb-scrim-bottom" />
+        <div className="bb-scrim-radial" />
+        <div className="bb-scrim-top" />
       </div>
 
-      {/* ─── CONTENT LAYOUT ─── */}
-      <div className="bb-layout">
+      {/* ─── 2. Watermark Japanese Calligraphy ─── */}
+      <div className="bb-watermark" aria-hidden="true">
+        {titleJP || '注目作品'}
+      </div>
 
-        {/* LEFT: Fixed-height text panel */}
-        <div className="bb-left">
-
-          {/* Row 1: Eyebrow — always same height */}
-          <div className="bb-eyebrow">
-            <span className="bb-rank">
-              <Star size={10} fill="currentColor" />
-              #{currentIndex + 1} FEATURED
+      {/* ─── 3. Main Billboard Content Layout ─── */}
+      <div className="bb-content-container">
+        <div className="bb-info-pane">
+          {/* Spotlight Rank Pill */}
+          <div className="bb-spotlight-badge">
+            <span className="bb-spotlight-tag">
+              <Star size={12} fill="currentColor" />
+              SPOTLIGHT #{currentIndex + 1}
             </span>
-            <span className="bb-rank-tri">चुनिंदा · 注目作品</span>
-            <span className="bb-status">{current.status || 'TV'}</span>
+            <span className="bb-spotlight-tri">注目作品</span>
           </div>
 
-          {/* Row 2: JP title — always rendered, empty string if none */}
-          <div className="bb-title-jp">{titleJP || '\u00a0'}</div>
+          {/* Japanese Subtitle */}
+          {titleJP && <div className="bb-kanji-sub">{titleJP}</div>}
 
-          {/* Row 3: Main title — always same clamp */}
-          <h2 className="bb-title" onClick={() => handleAnimeSelect(current)}>
-            {current.title || 'Untitled'}
-          </h2>
+          {/* Master English / Romaji Title */}
+          <h1 className="bb-hero-title" onClick={() => handleAnimeSelect(current)}>
+            {current.title}
+          </h1>
 
-          {/* Row 4: Ledger — ALWAYS 4 cells, guaranteed */}
-          <div className="bb-ledger">
-            <div className="bb-cell">
-              <div className="bb-cell-label">SCORE<span className="bb-tri"> · अंक</span></div>
-              <div className="bb-cell-value score">{score !== 'N/A' ? `★ ${score}` : 'N/A'}</div>
-            </div>
-            <div className="bb-cell">
-              <div className="bb-cell-label">FORMAT<span className="bb-tri"> · प्रारूप</span></div>
-              <div className="bb-cell-value">{format}</div>
-            </div>
-            <div className="bb-cell">
-              <div className="bb-cell-label">EPS<span className="bb-tri"> · प्रकरण</span></div>
-              <div className="bb-cell-value">{episodes}</div>
-            </div>
-            <div className="bb-cell bb-cell-wide">
-              <div className="bb-cell-label">GENRE<span className="bb-tri"> · शैली</span></div>
-              <div className="bb-cell-value">{genre}</div>
-            </div>
+          {/* Sleek Metadata Bar (ani.pm style tags) */}
+          <div className="bb-meta-bar">
+            {score !== 'N/A' && (
+              <span className="bb-meta-tag score">
+                <Star size={12} fill="currentColor" />
+                {score}
+              </span>
+            )}
+
+            <span className="bb-meta-tag format">
+              {format === 'MOVIE' ? <Film size={12} /> : <Tv size={12} />}
+              {format}
+            </span>
+
+            <span className="bb-meta-tag status">
+              <Clock size={12} />
+              {current.status || 'AIRING'}
+            </span>
+
+            {current.episodes && (
+              <span className="bb-meta-tag episodes">
+                {episodes}
+              </span>
+            )}
+
+            {current.year && (
+              <span className="bb-meta-tag year">
+                <Calendar size={12} />
+                {current.year}
+              </span>
+            )}
           </div>
 
-          {/* Row 5: Synopsis — always same 3-line clamp */}
-          <p className="bb-synopsis">{synopsis}</p>
+          {/* Genre Badges Cloud */}
+          {genres.length > 0 && (
+            <div className="bb-genre-row">
+              {genres.slice(0, 4).map((g, idx) => (
+                <span key={idx} className="bb-genre-pill">
+                  {g}
+                </span>
+              ))}
+            </div>
+          )}
 
-          {/* Row 6: Actions — always same structure */}
-          <div className="bb-actions">
-            <button className="bb-btn-primary" onClick={() => handleAnimeSelect(current)}>
-              <Play size={13} fill="currentColor" />
-              VIEW DETAILS
+          {/* Synopsis Paragraph */}
+          <p className="bb-synopsis-text">{synopsis}</p>
+
+          {/* Interactive CTA Buttons */}
+          <div className="bb-cta-row">
+            <button className="bb-cta-play" onClick={() => handleAnimeSelect(current)}>
+              <Play size={16} fill="currentColor" />
+              <span>Watch Now</span>
             </button>
+
             {toggleWatchlist && (
               <button
-                className={`bb-btn-secondary ${isBookmarked ? 'active' : ''}`}
-                onClick={e => { e.stopPropagation(); toggleWatchlist(current); }}
+                className={`bb-cta-vault ${isBookmarked ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWatchlist(current);
+                }}
               >
-                <Bookmark size={12} fill={isBookmarked ? 'currentColor' : 'none'} strokeWidth={2} />
-                {isBookmarked ? 'VAULTED' : 'VAULT'}
+                <Bookmark size={15} fill={isBookmarked ? 'currentColor' : 'none'} />
+                <span>{isBookmarked ? 'In Vault' : 'Add to Vault'}</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* RIGHT: Fixed poster + fixed-slot thumbnail column */}
-        <div className="bb-right">
-
-          {/* Main poster — fixed dimensions */}
-          <div className="bb-poster-wrap" onClick={() => handleAnimeSelect(current)}>
+        {/* ─── 4. Right Floating Poster Card (Glassmorphic Showcase) ─── */}
+        <div className="bb-floating-poster-pane" onClick={() => handleAnimeSelect(current)}>
+          <div className="bb-poster-frame">
             <img
-              src={current.image || ''}
-              alt={current.title || 'Poster'}
-              className="bb-poster"
+              src={current.image}
+              alt={current.title}
+              className="bb-floating-poster-img"
               loading="eager"
-              onError={e => { e.target.style.visibility = 'hidden'; }}
             />
-            <div className="bb-poster-rank">#{currentIndex + 1}</div>
-          </div>
-
-          {/* Thumbnail column — fixed 2 slots always reserved */}
-          <div className="bb-thumbs">
-            {[0, 1].map(i => (
-              <div key={i} className="bb-thumb" onClick={() => handleAnimeSelect(current)}>
-                {extraImages[i] ? (
-                  <img
-                    src={extraImages[i]}
-                    alt={`${current.title} art ${i + 2}`}
-                    className="bb-thumb-img"
-                    loading="lazy"
-                    onError={e => { e.target.style.visibility = 'hidden'; }}
-                  />
-                ) : (
-                  <div className="bb-thumb-empty" />
-                )}
-              </div>
-            ))}
+            <div className="bb-poster-glow" />
+            <div className="bb-poster-rank-pill">#{currentIndex + 1}</div>
           </div>
         </div>
       </div>
 
-      {/* Slide transition overlay — only visual fade, no layout involvement */}
+      {/* ─── 5. Navigation Controls (Arrows & Pagination Pills) ─── */}
       {safeAnimes.length > 1 && (
-        <>
-          <button className="bb-arrow left" onClick={prevSlide} aria-label="Previous">
-            <ChevronLeft size={20} strokeWidth={2} />
-          </button>
-          <button className="bb-arrow right" onClick={nextSlide} aria-label="Next">
-            <ChevronRight size={20} strokeWidth={2} />
-          </button>
-          <div className="bb-dots">
-            {safeAnimes.map((_, idx) => (
+        <div className="bb-controls-footer">
+          <div className="bb-nav-arrows">
+            <button className="bb-nav-btn prev" onClick={prevSlide} aria-label="Previous Slide">
+              <ChevronLeft size={18} />
+            </button>
+            <button className="bb-nav-btn next" onClick={nextSlide} aria-label="Next Slide">
+              <ChevronRight size={18} />
+            </button>
+          </div>
+
+          <div className="bb-pills-bar">
+            {safeAnimes.map((anime, idx) => (
               <button
                 key={idx}
-                className={`bb-dot ${idx === currentIndex ? 'active' : ''}`}
+                className={`bb-pill-indicator ${idx === currentIndex ? 'active' : ''}`}
                 onClick={() => setCurrentIndex(idx)}
-              />
+                title={anime.title}
+              >
+                <span className="bb-pill-bar" />
+              </button>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

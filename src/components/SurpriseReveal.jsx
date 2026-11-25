@@ -46,7 +46,7 @@ export default function SurpriseReveal({ anime, onComplete }) {
       {phase === 'countdown' && (
         <div className="surprise-countdown">
           <span key={countIdx} className="surprise-countdown-char">{COUNTDOWN_KANJI[countIdx]}</span>
-          <span className="surprise-fate-label">運命を引く · भाग्य को खींचो · DRAWING YOUR FATE</span>
+          <span className="surprise-fate-label">運命を引く · DRAWING YOUR FATE</span>
         </div>
       )}
 
@@ -54,7 +54,7 @@ export default function SurpriseReveal({ anime, onComplete }) {
       {phase === 'slam' && anime && (
         <div className="surprise-slam">
           <div className="surprise-slam-left">
-            <div className="surprise-slam-tag">運命の選択 · भाग्य का चुनाव · FATE HAS CHOSEN</div>
+            <div className="surprise-slam-tag">運命の選択 · FATE HAS CHOSEN</div>
             <h1 className="surprise-slam-title">{anime.title}</h1>
             {anime.titleJapanese && (
               <div className="surprise-slam-jp">{anime.titleJapanese}</div>
@@ -69,7 +69,7 @@ export default function SurpriseReveal({ anime, onComplete }) {
             </div>
             <p className="surprise-slam-synopsis">{(anime.synopsis || '').slice(0, 160)}…</p>
             <button className="surprise-slam-cta" onClick={onComplete}>
-              ▶ 今すぐ見る · अभी देखें · OPEN NOW
+              ▶ 今すぐ見る · OPEN NOW
             </button>
           </div>
 

@@ -32,6 +32,7 @@ import TopAnimeSidebar from './components/TopAnimeSidebar';
 import Loading from './components/Loading';
 import AuthModal from './components/AuthModal';
 import GenrePage from './components/GenrePage';
+import AdBanner from './components/AdBanner';
 import { ANIME_GENRES } from './data/genresData';
 import { getCurrentUser, getGuestData, saveCurrentUserData, logoutUser } from './utils/auth';
 
@@ -650,10 +651,10 @@ function App() {
               marginLeft: cinemaMode ? '0' : undefined
             }}>
               
-              {/* Dynamic Featured Billboard Banner (Full Width) */}
+              {/* Dynamic Featured Billboard Banner (Ani.pm style Spotlight Hero) */}
               {activeTab === 'trending' && trendingAnime.length > 0 && (
                 <FeaturedBillboard
-                  animes={trendingAnime.slice(0, 5)}
+                  animes={trendingAnime.slice(0, 10)}
                   handleAnimeSelect={handleAnimeSelect}
                   toggleWatchlist={toggleWatchlist}
                   isInWatchlist={isInWatchlist}
@@ -677,6 +678,10 @@ function App() {
                         toggleWatchlist={toggleWatchlist}
                         isInWatchlist={isInWatchlist}
                       />
+
+                      {/* Compliant AdSense Banner between releases and upcoming */}
+                      <AdBanner layout="horizontal" />
+
                       <UpcomingReleases 
                         handleAnimeSelect={handleAnimeSelect} 
                         toggleWatchlist={toggleWatchlist}
@@ -709,7 +714,7 @@ function App() {
                   <div>
                     <div className="section-header-trilingual">
                       <div className="section-header-trilingual-stack">
-                        <span className="section-header-sub-label">खोज और अन्वेषण · 検索</span>
+                        <span className="section-header-sub-label">検索 · EXPLORE</span>
                         <h2 className="section-header-title-main">SEARCH & EXPLORE</h2>
                       </div>
                       <div className="section-header-divider"></div>
@@ -783,11 +788,13 @@ function App() {
                       <div className="trending-section" style={{ marginTop: '30px' }}>
                         <div className="section-header-trilingual">
                           <div className="section-header-trilingual-stack">
-                            <span className="section-header-sub-label">ट्रेंडिंग · トレンド</span>
+                            <span className="section-header-sub-label">トレンド · POPULAR</span>
                             <h2 className="section-header-title-main">TRENDING NOW</h2>
                           </div>
                           <div className="section-header-divider"></div>
                         </div>
+
+                        <AdBanner layout="leaderboard" />
 
                         <div className={`anime-grid ${isLoadingMore ? 'loading' : ''}`}>
                           {trendingAnime.map((anime, index) => (
@@ -811,7 +818,7 @@ function App() {
                               {isLoadingMore ? (
                                 <>
                                   <Loading type="inline" size="sm" style={{ marginRight: '8px' }} />
-                                  खोज जारी है… · 検索中… · FETCHING SHOWS…
+                                  検索中… · FETCHING SHOWS…
                                 </>
                               ) : (
                                 "Explore More Trending"
@@ -849,7 +856,7 @@ function App() {
                               {isLoadingMore ? (
                                 <>
                                   <Loading type="inline" size="sm" style={{ marginRight: '8px' }} />
-                                  खोज जारी है… · 検索中… · FETCHING SHOWS…
+                                  検索中… · FETCHING SHOWS…
                                 </>
                               ) : (
                                 "Explore More Results"
@@ -867,7 +874,7 @@ function App() {
                   <div>
                     <div className="section-header-trilingual">
                       <div className="section-header-trilingual-stack">
-                        <span className="section-header-sub-label">साप्ताहिक प्रसारण · スケジュール</span>
+                        <span className="section-header-sub-label">スケジュール · BROADCAST</span>
                         <h2 className="section-header-title-main">WEEKLY AIRING SCHEDULE</h2>
                       </div>
                       <div className="section-header-divider"></div>
@@ -878,6 +885,8 @@ function App() {
                       scheduleDay={scheduleDay}
                       setScheduleDay={setScheduleDay}
                     />
+                    
+                    <AdBanner layout="leaderboard" />
                     
                     {error ? (
                       <div className="error-container">
@@ -913,7 +922,7 @@ function App() {
                   <div>
                     <div className="section-header-trilingual">
                       <div className="section-header-trilingual-stack">
-                        <span className="section-header-sub-label">मेरी तिजोरी · 保管庫</span>
+                        <span className="section-header-sub-label">保管庫 · ARCHIVE</span>
                         <h2 className="section-header-title-main">MY VAULT</h2>
                       </div>
                       <div className="section-header-divider"></div>

@@ -13,7 +13,7 @@ export default function ContinueWatching({ watchHistory, resumeWatch, removeFrom
     <section className="continue-watching" id="continue-watching">
       <div className="section-header-trilingual">
         <div className="section-header-trilingual-stack">
-          <span className="section-header-sub-label">देखना जारी रखें · 視聴を続ける</span>
+          <span className="section-header-sub-label">視聴を続ける · RESUME</span>
           <h2 className="section-header-title-main">CONTINUE WATCHING</h2>
         </div>
         <div className="section-header-divider"></div>

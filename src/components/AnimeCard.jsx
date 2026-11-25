@@ -116,6 +116,11 @@ export default function AnimeCard({ anime, handleAnimeSelect, toggleWatchlist, i
         </button>
 
         {anime.rank && <div className="card-rank">#{anime.rank}</div>}
+        {anime.latestEpisode && (
+          <div className="card-rank" style={{ background: 'rgba(255, 77, 106, 0.9)', color: '#fff', fontWeight: 700 }}>
+            EP {anime.latestEpisode}
+          </div>
+        )}
         {anime.airingTime && (
           <div className="card-airing-time">
             ⏱ {anime.airingTime}
@@ -188,30 +193,30 @@ export default function AnimeCard({ anime, handleAnimeSelect, toggleWatchlist, i
             </button>
           </div>
 
-          {/* Trilingual Ledger Grid (2x3 specifications) */}
+          {/* Specifications Ledger Grid (2x3) */}
           <div className="card-ledger-grid">
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">SCORE<span className="card-ledger-tri"> · अंक</span></div>
+              <div className="card-ledger-label">SCORE<span className="card-ledger-tri"> · スコア</span></div>
               <div className="card-ledger-value score">{anime.score != null && !isNaN(anime.score) ? `★ ${Number(anime.score).toFixed(1)}` : '—'}</div>
             </div>
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">EPS<span className="card-ledger-tri"> · प्रकरण</span></div>
+              <div className="card-ledger-label">EPS<span className="card-ledger-tri"> · 話数</span></div>
               <div className="card-ledger-value">{anime.episodes || 'Airing'}</div>
             </div>
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">STATUS<span className="card-ledger-tri"> · स्थिति</span></div>
+              <div className="card-ledger-label">STATUS<span className="card-ledger-tri"> · 状態</span></div>
               <div className="card-ledger-value status">{anime.status || 'Airing'}</div>
             </div>
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">STUDIO<span className="card-ledger-tri"> · स्टूडियो · スタジオ</span></div>
+              <div className="card-ledger-label">STUDIO<span className="card-ledger-tri"> · スタジオ</span></div>
               <div className="card-ledger-value studio" title={anime.studio || 'TBA'}>{anime.studio || 'TBA'}</div>
             </div>
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">RELEASE<span className="card-ledger-tri"> · सीजन · シーズン</span></div>
+              <div className="card-ledger-label">RELEASE<span className="card-ledger-tri"> · シーズン</span></div>
               <div className="card-ledger-value release" title={releasePeriod}>{releasePeriod}</div>
             </div>
             <div className="card-ledger-cell">
-              <div className="card-ledger-label">SOURCE<span className="card-ledger-tri"> · स्रोत · 原作</span></div>
+              <div className="card-ledger-label">SOURCE<span className="card-ledger-tri"> · 原作</span></div>
               <div className="card-ledger-value source" title={anime.source || 'TBA'}>{anime.source || 'TBA'}</div>
             </div>
           </div>

@@ -26,7 +26,13 @@ export default function LatestReleases({ handleAnimeSelect, toggleWatchlist, isI
       try {
         const data = await fetchLatestReleases(apiPage);
         if (!cancelled) {
-          setReleases(prev => apiPage === 1 ? data.results : [...prev, ...data.results]);
+          setReleases(prev => {
+            if (apiPage === 1) return data.results;
+            // Prevent duplicate anime across pages
+            const existingIds = new Set(prev.map(a => a.id));
+            const newItems = data.results.filter(a => !existingIds.has(a.id));
+            return [...prev, ...newItems];
+          });
           setHasNextPage(data.hasNextPage);
           if (apiPage > 1) {
             setLocalPage(prev => prev + 1); // advance page after data loads
@@ -83,7 +89,7 @@ export default function LatestReleases({ handleAnimeSelect, toggleWatchlist, isI
     <section className="latest-releases" id="latest-releases">
       <div className="section-header-trilingual">
         <div className="section-header-trilingual-stack">
-          <span className="section-header-sub-label">नवीनतम एपिसोड · 最新リリース</span>
+          <span className="section-header-sub-label">最新リリース · NEW EPISODES</span>
           <h2 className="section-header-title-main">LATEST RELEASES</h2>
         </div>
         <div className="section-header-divider"></div>

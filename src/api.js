@@ -622,10 +622,10 @@ export async function fetchAnimeStaff(id) {
 }
 
 /**
- * Fetch latest released anime (currently airing)
+ * Fetch latest released anime (episodes recently aired)
  */
 export async function fetchLatestReleases(page = 1) {
-  const cacheKey = `latest_releases_${page}`;
+  const cacheKey = `latest_episodes_${page}`;
   if (cache.latest[cacheKey]) {
     return cache.latest[cacheKey];
   }
@@ -636,31 +636,38 @@ export async function fetchLatestReleases(page = 1) {
   }
 
   try {
+    // Query recently aired episodes via airingSchedules
     const query = `
       query ($page: Int) {
-        Page(page: $page, perPage: 18) {
+        Page(page: $page, perPage: 24) {
           pageInfo {
             hasNextPage
           }
-          media(status: RELEASING, sort: START_DATE_DESC, type: ANIME) {
+          airingSchedules(notYetAired: false, sort: TIME_DESC) {
             id
-            idMal
-            title { romaji english native }
-            coverImage { extraLarge large medium }
-            bannerImage
-            averageScore
-            meanScore
-            episodes
-            status
-            format
-            description
-            genres
-            trailer { id site }
-            studios(isMain: true) { nodes { name } }
-            season
-            seasonYear
-            startDate { year }
-            duration
+            episode
+            airingAt
+            media {
+              id
+              idMal
+              title { romaji english native }
+              coverImage { extraLarge large medium }
+              bannerImage
+              averageScore
+              meanScore
+              episodes
+              status
+              format
+              description
+              genres
+              trailer { id site }
+              studios(isMain: true) { nodes { name } }
+              season
+              seasonYear
+              startDate { year }
+              duration
+              isAdult
+            }
           }
         }
       }
@@ -668,7 +675,21 @@ export async function fetchLatestReleases(page = 1) {
 
     const data = await queryAniList(query, { page });
     const hasNextPage = data.Page?.pageInfo?.hasNextPage || false;
-    const results = (data.Page?.media || []).map((m) => normalizeMedia(m));
+    const schedules = data.Page?.airingSchedules || [];
+    
+    // Deduplicate media so each show appears once per page with its latest aired episode
+    const seen = new Set();
+    const results = [];
+    for (const item of schedules) {
+      const m = item.media;
+      if (m && !m.isAdult && !seen.has(m.id)) {
+        seen.add(m.id);
+        const normalized = normalizeMedia(m);
+        // Include latest episode info for badge display
+        normalized.latestEpisode = item.episode;
+        results.push(normalized);
+      }
+    }
 
     const output = { results, hasNextPage };
     cache.latest[cacheKey] = output;

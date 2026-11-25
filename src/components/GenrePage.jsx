@@ -4,6 +4,7 @@ import { ANIME_GENRES, GENRE_MOOD_TABS } from '../data/genresData';
 import { fetchAnimeByGenre } from '../api';
 import AnimeCard from './AnimeCard';
 import Loading from './Loading';
+import AdBanner from './AdBanner';
 import '../styles/GenrePage.css';
 
 export default function GenrePage({
@@ -112,7 +113,7 @@ export default function GenrePage({
           <div className="genre-header-zone">
             <div className="section-header-trilingual">
               <div className="section-header-trilingual-stack">
-                <span className="section-header-sub-label">शैलियाँ · ジャンル · GENRE LAB</span>
+                <span className="section-header-sub-label">ジャンル · GENRE LAB</span>
                 <h2 className="section-header-title-main">EXPLORE BY GENRE</h2>
               </div>
               <div className="section-header-divider"></div>
@@ -138,7 +139,7 @@ export default function GenrePage({
                 <Search size={14} className="genre-search-icon" />
                 <input
                   type="text"
-                  placeholder="खोजें · FILTER GENRES..."
+                  placeholder="Filter genres by name..."
                   value={genreSearch}
                   onChange={(e) => setGenreSearch(e.target.value)}
                   className="genre-search-input"
@@ -228,7 +229,7 @@ export default function GenrePage({
             <div className="genre-showcase-nav">
               <button className="genre-nav-back-btn" onClick={handleReturnToHub}>
                 <ArrowLeft size={14} />
-                <span>सभी शैलियाँ · All Genres</span>
+                <span>All Genres · 全ジャンル</span>
               </button>
             </div>
 
@@ -240,7 +241,7 @@ export default function GenrePage({
                   {activeGenre.nameEn}
                 </h1>
                 <span className="genre-showcase-jp">
-                  {activeGenre.nameHi} · {activeGenre.nameJp}
+                  {activeGenre.nameJp}
                 </span>
               </div>
 
@@ -355,6 +356,7 @@ export default function GenrePage({
             </div>
           ) : (
             <>
+              <AdBanner layout="leaderboard" />
               <div className="anime-grid">
                 {animeList.map((anime, index) => (
                   <AnimeCard

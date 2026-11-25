@@ -138,7 +138,7 @@ export default function AuthModal({
 
         {/* Modal Header */}
         <div className="auth-modal-header">
-          <span className="auth-header-sub">खाता · アカウント · USER PROFILE SYSTEM</span>
+          <span className="auth-header-sub">アカウント · USER PROFILE SYSTEM</span>
           <h2 className="auth-header-title">
             <Sparkles size={20} color="var(--accent-primary)" />
             {activeTab === 'profile' ? 'Profile & Preferences' : (activeTab === 'login' ? 'Sign In to Anime Veda' : 'Create Anime Profile')}

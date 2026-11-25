@@ -1,12 +1,11 @@
 import { Home, Compass, CalendarDays, Bookmark, Clock, Grid } from 'lucide-react';
 import '../styles/Sidebar.css';
 
-// Trilingual navigation menu items configuration
+// Bilingual navigation menu items configuration (English + Japanese)
 const SIDEBAR_NAV_ITEMS = [
   {
     icon: Home,
     labelEn: 'HOME',
-    labelHi: 'होम',
     labelJp: 'ホーム',
     tabId: 'trending',
     actionType: 'trending',
@@ -14,7 +13,6 @@ const SIDEBAR_NAV_ITEMS = [
   {
     icon: Grid,
     labelEn: 'GENRES',
-    labelHi: 'शैलियाँ',
     labelJp: 'ジャンル',
     tabId: 'genres',
     actionType: 'genres',
@@ -22,7 +20,6 @@ const SIDEBAR_NAV_ITEMS = [
   {
     icon: Compass,
     labelEn: 'EXPLORE',
-    labelHi: 'खोज',
     labelJp: '探索',
     tabId: 'search',
     actionType: 'search',
@@ -30,7 +27,6 @@ const SIDEBAR_NAV_ITEMS = [
   {
     icon: CalendarDays,
     labelEn: 'SCHEDULE',
-    labelHi: 'कार्यक्रम',
     labelJp: 'スケジュール',
     tabId: 'schedule',
     actionType: 'schedule',
@@ -38,7 +34,6 @@ const SIDEBAR_NAV_ITEMS = [
   {
     icon: Bookmark,
     labelEn: 'VAULT',
-    labelHi: 'तिजोरी',
     labelJp: '保管庫',
     tabId: 'watchlist',
     actionType: 'watchlist',
@@ -50,7 +45,6 @@ const UPCOMING_NAV_ITEMS = [
   { 
     icon: Clock, 
     labelEn: 'SEASONAL', 
-    labelHi: 'मौसमी', 
     labelJp: 'シーズン' 
   },
 ];
@@ -88,7 +82,7 @@ export default function Sidebar({ activeTab, setActiveTab, view, setView, showTr
               <div className="sidebar-active-indicator"></div>
               <Icon size={20} strokeWidth={2} />
               <div className="sidebar-label-group">
-                <span className="sidebar-label-sub">{item.labelHi} · {item.labelJp}</span>
+                <span className="sidebar-label-sub">{item.labelJp}</span>
                 <span className="sidebar-label-main">{item.labelEn}</span>
               </div>
             </button>
@@ -110,7 +104,7 @@ export default function Sidebar({ activeTab, setActiveTab, view, setView, showTr
               <div className="sidebar-active-indicator"></div>
               <Icon size={20} strokeWidth={2} />
               <div className="sidebar-label-group">
-                <span className="sidebar-label-sub">{item.labelHi} · {item.labelJp}</span>
+                <span className="sidebar-label-sub">{item.labelJp}</span>
                 <span className="sidebar-label-main">{item.labelEn}</span>
               </div>
             </button>
